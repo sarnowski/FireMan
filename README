@@ -1,0 +1,37 @@
+FireMan
+The local firefox manual page viewer.
+
+
+0. Requirements
+
+Firefox 2.0 and higher required (1.5 and lower untested).
+
+A "zip" program is required.
+
+Be sure to have a 'sed' (man 1 sed) installed with infile (-i) support
+(ex. GNU sed).
+
+On OpenBSD install the "gsed" package.
+
+
+1. Building
+
+Type "make" to build a XPI extension package if you meet the
+requirements.
+
+
+2. Using
+
+Start Firefox and choose "File" -> "Open File..." and choose the XPI
+file from this directory.
+
+
+3. Developing
+
+To have a faster development, create a file, named like the application
+id with the path to the build directory in it. Example:
+
+  pwd > \
+  ~/.mozilla/firefox/<profileid>/extensions/fireman\@new-thoughts.org
+
+Afterwards, Firefox will load the current state on start.

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+Copyright (c) 2008 Tobias Sarnowski <sarnowski@new-thoughts.org>
+
+See the LICENSE file shipped with the source code or package for
+licensing terms.
+-->
+
+<!DOCTYPE overlay SYSTEM "chrome://%%CHROMENAME%%/locale/%%APPNAME%%Sidebar.dtd">
+<overlay id="%%APPNAME%%SidebarOverlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+	<menupopup id="viewSidebarMenu">
+		<menuitem key="key_open%%APPNAME%%Sidebar" observes="view%%APPNAME%%Sidebar" />
+	</menupopup>
+
+	<keyset id="mainKeyset">
+		<key id="key_open%%APPNAME%%Sidebar" command="view%%APPNAME%%Sidebar"
+			key="&open%%APPNAME%%Sidebar.commandkey;"
+			modifiers="&open%%APPNAME%%Sidebar.modifierskey;" />
+	</keyset>
+
+	<broadcasterset id="mainBroadcasterSet">
+		<broadcaster id="view%%APPNAME%%Sidebar"
+			label="&%%APPNAME%%Sidebar.title;"
+			autoCheck="false"
+			type="checkbox"
+			group="sidebar"
+			sidebarurl="chrome://%%CHROMENAME%%/content/%%APPNAME%%Sidebar.xul"
+			sidebartitle="&%%APPNAME%%Sidebar.title;"
+			oncommand="toggleSidebar('view%%APPNAME%%Sidebar');" />
+	</broadcasterset>
+</overlay>

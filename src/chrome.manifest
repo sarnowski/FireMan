@@ -1,0 +1,3 @@
+content	%%CHROMENAME%%	jar:chrome/%%CHROMENAME%%.jar!/content/
+locale	%%CHROMENAME%%	en-US	jar:chrome/%%CHROMENAME%%.jar!/locale/en-US/
+overlay chrome://browser/content/browser.xul	chrome://%%CHROMENAME%%/content/%%APPNAME%%SidebarOverlay.xul
