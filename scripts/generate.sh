@@ -34,6 +34,10 @@ mkdir -p $BUILDDIR
 # find prints relative paths
 cd $SRCDIR
 
+# find out the actual version
+VERSION=$(../scripts/generate_version.sh)
+echo "    VERSION $VERSION"
+
 # process every listed file
 find $FILES_TO_PROCESS | while read file; do
 	if [ -d $file ]; then
@@ -45,6 +49,9 @@ find $FILES_TO_PROCESS | while read file; do
 		# copy over file
 		echo "    GEN $file"
 		cp $file $BUILDDIR/$file
+
+		# insert version
+		$SED "s/%%VERSION%%/$VERSION/g" -i $BUILDDIR/$file
 
 		# parse the config file
 		cat $configfile | while read line; do
