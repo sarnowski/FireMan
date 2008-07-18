@@ -24,11 +24,10 @@ licensing terms.
 			<textbox id="ManualPageSearch"
 				multiline="false"
 				type="timed"
-				timeout="500"
+				timeout="200"
 				flex="1"
 				oncommand="FM_fillTree(this.value);" />
 			<button id="ManualPageSearchButton"
-				maxwidth="30px"
 				label="&FireManSidebar.searchButton;"
 				image="chrome://fireman/skin/images/find.png" />
 		</hbox>
@@ -37,7 +36,8 @@ licensing terms.
 			<treecols>
 				<treecol id="ManualPageTreeEntries" label="&FireManSidebar.result;" primary="true" flex="1" />
 			</treecols>
-			<!-- <treechildren /> -->
+			<treechildren id="ManualPageTreeContent" />
+			<!--
 			<treechildren>
 				<treeitem container="true" open="false">
 					<treerow>
@@ -84,6 +84,7 @@ licensing terms.
 					</treechildren>
 				</treeitem>
 			</treechildren>
+			-->
 		</tree>
 
 	</vbox>

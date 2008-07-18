@@ -47,7 +47,7 @@ function FM_getList(searchTerm)
 
 
 	// prepare data object to fill it later
-	var data = null;
+	var data = new Array();
 
 	for (n in lines) {
 		var line = FM_trim(lines[n]);
@@ -62,13 +62,21 @@ function FM_getList(searchTerm)
 			continue;
 		}
 
-		// we have a valid line, now sort it in
-		var title = entry[1]
-		var category = FM_getOSCategoryAlias(entry[2])
+		// we have a valid line
+		var aliases = entry[1].split(',');
+		var title = FM_trim(aliases[0]);
+		var category = entry[2];
 		var description = entry[3];
 
-		//alert("Entry:  " + title + " (" + category + "): " + description);
-		// TODO fill in this data in a structure
+		aliases.shift();
+
+		var page = new Array();
+		page["title"] = title;
+		page["category"] = category;
+		page["description"] = description;
+		page["aliases"] = aliases;
+
+		data[data.length] = page;
 	}
 
 	return data;
