@@ -36,7 +36,7 @@ cd $SRCDIR
 
 # find out the actual version
 VERSION=$(../scripts/generate_version.sh)
-echo "    VERSION $VERSION"
+echo "    VSN $VERSION"
 
 # process every listed file
 find $FILES_TO_PROCESS | while read file; do
@@ -76,6 +76,9 @@ find $FILES_TO_PROCESS | while read file; do
 
 			# strip " from strings
 			value=$(echo $value | sed 's/^"//' | sed 's/"$//')
+
+			# escape / to \/
+			value=$(echo $value | sed 's/\//\\\//')
 
 			# replace %%<key>%% with <value>
 			$SED "s/%%$key%%/$value/g" -i $BUILDDIR/$file
