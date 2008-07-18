@@ -8,25 +8,25 @@ licensing terms.
 
 <?xml-stylesheet href="chrome://global/skin/" type"text/css" ?>
 <?xml-stylesheet href="chrome://browser/skin/browser.css" type="text/css" ?>
-<!DOCTYPE page SYSTEM "chrome://%%CHROMENAME%%/locale/%%APPNAME%%Sidebar.dtd">
+<!DOCTYPE page SYSTEM "chrome://fireman/locale/FireManSidebar.dtd">
 
-<page id="sb%%APPNAME%%Sidebar" title="&%%APPNAME%%Sidebar.title;"
+<page id="sbFireManSidebar" title="&FireManSidebar.title;"
 	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-	onload="%%APPNAME%%_initDB();">
-	<script src="chrome://%%CHROMENAME%%/content/%%APPNAME%%.js" />
-	<script src="chrome://%%CHROMENAME%%/content/%%APPNAME%%Sidebar.js" />
+	onload="FM_fillTree('');">
+	<script src="chrome://fireman/content/FireMan.js" />
+	<script src="chrome://fireman/content/FireManOS.js" />
+	<script src="chrome://fireman/content/FireManSidebar.js" />
 
 	<vbox flex="1">
 
 		<hbox>
-			<textbox id="ManualPageSearch" multiline="false" type="timed" timeout="1000" flex="1" />
+			<textbox id="ManualPageSearch" multiline="false" type="timed" timeout="500" flex="1" oncommand="FM_fillTree(this.value);" />
 			<button id="ManualPageSearchButton" label="Search!" />
 		</hbox>
 
 		<tree id="ManualPageListing" flex="1">
-			<treecols onload="%%APPNAME%%_fillTree('');">
-				<treecol id="ManualPageEntryName" label="Name" primary="true" flex="1" />
-				<treecol id="ManualPageEntryDescription" label="Description" flex="2"/>
+			<treecols>
+				<treecol id="ManualPageEntryName" primary="true" flex="1" />
 			</treecols>
 			<treechildren />
 		</tree>

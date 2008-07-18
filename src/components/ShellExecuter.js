@@ -59,7 +59,7 @@ ShellExecuter.prototype = {
 					.getService(Components.interfaces.nsIProperties)
 					.get("TmpD", Components.interfaces.nsIFile);
 
-		file.append("%%APPNAME%%.out");
+		file.append("FFShellExecuter.out");
 		file.createUnique(Components.interfaces.nsIFile.NORMAL_FILE_TYPE, 0600);
 		return file;
 	},

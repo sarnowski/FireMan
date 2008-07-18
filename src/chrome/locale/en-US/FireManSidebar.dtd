@@ -1,3 +1,3 @@
-<!ENTITY %%APPNAME%%Sidebar.title "Manual Pages">
-<!ENTITY open%%APPNAME%%Sidebar.commandkey "M">
-<!ENTITY open%%APPNAME%%Sidebar.modifierskey "shift accel">
+<!ENTITY FireManSidebar.title "Manual Pages">
+<!ENTITY openFireManSidebar.commandkey "M">
+<!ENTITY openFireManSidebar.modifierskey "shift accel">

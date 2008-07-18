@@ -1,6 +1,4 @@
-function %%APPNAME%%_fillTree(searchTerm)
+function FM_fillTree(searchTerm)
 {
-	if (%%APPNAME%%_db == null) {
-		%%APPNAME%%_initDB();
-	}
+	var data = FM_getList(searchTerm);
 }

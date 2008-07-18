@@ -6,28 +6,28 @@ See the LICENSE file shipped with the source code or package for
 licensing terms.
 -->
 
-<!DOCTYPE overlay SYSTEM "chrome://%%CHROMENAME%%/locale/%%APPNAME%%Sidebar.dtd">
-<overlay id="%%APPNAME%%SidebarOverlay"
+<!DOCTYPE overlay SYSTEM "chrome://fireman/locale/FireManSidebar.dtd">
+<overlay id="FireManSidebarOverlay"
 	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
 	<menupopup id="viewSidebarMenu">
-		<menuitem key="key_open%%APPNAME%%Sidebar" observes="view%%APPNAME%%Sidebar" />
+		<menuitem key="key_openFireManSidebar" observes="viewFireManSidebar" />
 	</menupopup>
 
 	<keyset id="mainKeyset">
-		<key id="key_open%%APPNAME%%Sidebar" command="view%%APPNAME%%Sidebar"
-			key="&open%%APPNAME%%Sidebar.commandkey;"
-			modifiers="&open%%APPNAME%%Sidebar.modifierskey;" />
+		<key id="key_openFireManSidebar" command="viewFireManSidebar"
+			key="&openFireManSidebar.commandkey;"
+			modifiers="&openFireManSidebar.modifierskey;" />
 	</keyset>
 
 	<broadcasterset id="mainBroadcasterSet">
-		<broadcaster id="view%%APPNAME%%Sidebar"
-			label="&%%APPNAME%%Sidebar.title;"
+		<broadcaster id="viewFireManSidebar"
+			label="&FireManSidebar.title;"
 			autoCheck="false"
 			type="checkbox"
 			group="sidebar"
-			sidebarurl="chrome://%%CHROMENAME%%/content/%%APPNAME%%Sidebar.xul"
-			sidebartitle="&%%APPNAME%%Sidebar.title;"
-			oncommand="toggleSidebar('view%%APPNAME%%Sidebar');" />
+			sidebarurl="chrome://fireman/content/FireManSidebar.xul"
+			sidebartitle="&FireManSidebar.title;"
+			oncommand="toggleSidebar('viewFireManSidebar');" />
 	</broadcasterset>
 </overlay>
