@@ -8,8 +8,9 @@ licensing terms.
 
 <?xml-stylesheet href="chrome://global/skin/" type"text/css" ?>
 <?xml-stylesheet href="chrome://browser/skin/browser.css" type="text/css" ?>
-<!DOCTYPE page SYSTEM "chrome://fireman/locale/FireManSidebar.dtd">
+<?xml-stylesheet href="chrome://fireman/skin/FireManSidebar.css" type="text/css"?>
 
+<!DOCTYPE page SYSTEM "chrome://fireman/locale/FireManSidebar.dtd">
 <page id="sbFireManSidebar" title="&FireManSidebar.title;"
 	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
 	onload="FM_fillTree('');">
@@ -20,15 +21,69 @@ licensing terms.
 	<vbox flex="1">
 
 		<hbox>
-			<textbox id="ManualPageSearch" multiline="false" type="timed" timeout="500" flex="1" oncommand="FM_fillTree(this.value);" />
-			<button id="ManualPageSearchButton" label="Search!" />
+			<textbox id="ManualPageSearch"
+				multiline="false"
+				type="timed"
+				timeout="500"
+				flex="1"
+				oncommand="FM_fillTree(this.value);" />
+			<button id="ManualPageSearchButton"
+				maxwidth="30px"
+				label="&FireManSidebar.searchButton;"
+				image="chrome://fireman/skin/images/find.png" />
 		</hbox>
 
-		<tree id="ManualPageTree" flex="1" hidecolumnpicker="yes" seltype="single" disableKeyNavigation="false" editable="false" class="tree">
+		<tree id="ManualPageTree" flex="1" hidecolumnpicker="true" seltype="single" disableKeyNavigation="false" editable="false">
 			<treecols>
-				<treecol id="ManualPageTreeEntries" primary="true" flex="1" />
+				<treecol id="ManualPageTreeEntries" label="&FireManSidebar.result;" primary="true" flex="1" />
 			</treecols>
-			<treechildren />
+			<!-- <treechildren /> -->
+			<treechildren>
+				<treeitem container="true" open="false">
+					<treerow>
+						<treecell class="FireManCategory" label="Category number 1" src="chrome://fireman/skin/images/book.png" />
+					</treerow>
+
+					<treechildren>
+						<treeitem container="true" open="true">
+							<treerow>
+								<treecell class="FireManPage" label="Topic number 1" src="chrome://fireman/skin/images/page_white_text.png" />
+							</treerow>
+
+							<treechildren>
+								<treeitem>
+									<treerow>
+										<treecell class="FireManLink" label="Link 1" src="chrome://fireman/skin/images/page_white_get.png" />
+									</treerow>
+								</treeitem>
+								<treeitem>
+									<treerow>
+										<treecell class="FireManLink" label="Link 2" src="chrome://fireman/skin/images/page_white_get.png" />
+									</treerow>
+								</treeitem>
+							</treechildren>
+						</treeitem>
+					</treechildren>
+				</treeitem>
+				<treeitem container="true" open="true">
+					<treerow>
+						<treecell class="FireManCategory" label="Category number 2" src="chrome://fireman/skin/images/book.png" />
+					</treerow>
+
+					<treechildren>
+						<treeitem>
+							<treerow>
+								<treecell class="FireManPage" label="Topic number 2" src="chrome://fireman/skin/images/page_white_text.png" />
+							</treerow>
+						</treeitem>
+						<treeitem>
+							<treerow>
+								<treecell class="FireManPage" label="Topic number 3" src="chrome://fireman/skin/images/page_white_text.png" />
+							</treerow>
+						</treeitem>
+					</treechildren>
+				</treeitem>
+			</treechildren>
 		</tree>
 
 	</vbox>

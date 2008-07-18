@@ -1,3 +1,5 @@
 <!ENTITY FireManSidebar.title "Manual Pages">
+<!ENTITY FireManSidebar.searchButton "Search!">
+<!ENTITY FireManSidebar.result "Result">
 <!ENTITY openFireManSidebar.commandkey "M">
 <!ENTITY openFireManSidebar.modifierskey "shift accel">

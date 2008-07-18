@@ -14,16 +14,23 @@ licensing terms.
 
 	<!-- our manu entry -->
 	<menupopup id="viewSidebarMenu">
-		<menuitem key="key_openFireManSidebar" observes="viewFireManSidebar" />
+		<menuitem key="key_openFireManSidebar"
+			observes="viewFireManSidebar" />
 	</menupopup>
 
 	<!-- our toolbar button -->
 	<toolbarpalette id="BrowserToolbarPalette">
-		<toolbarbutton id="FireManButton" class="toolbarbutton-1" label="&FireManSidebar.title;" tooltiptext="&FireManSidebar.title;" oncommand="toggleSidebar('viewFireManSidebar');" />
+		<toolbarbutton id="FireManButton"
+			class="toolbarbutton-1"
+			label="&FireManSidebar.title;"
+			tooltiptext="&FireManSidebar.title;"
+			oncommand="toggleSidebar('viewFireManSidebar');" />
 	</toolbarpalette>
 
+
 	<keyset id="mainKeyset">
-		<key id="key_openFireManSidebar" command="viewFireManSidebar"
+		<key id="key_openFireManSidebar"
+			command="viewFireManSidebar"
 			key="&openFireManSidebar.commandkey;"
 			modifiers="&openFireManSidebar.modifierskey;" />
 	</keyset>
