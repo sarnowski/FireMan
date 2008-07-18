@@ -33,7 +33,7 @@ function FM_getList(searchTerm)
 	}
 
 	// query the apropos database for the searchterm
-	var command = "apropos '" + searchTerm + "'";
+	var command = "apropos '" + searchTerm + "' | sort -f";
 	var output = FM_exec(command);
 
 	// now parse the output
