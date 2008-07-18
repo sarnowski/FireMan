@@ -1,0 +1,8 @@
+* the small icon will not be used when dragging
+  the FireMan button into a small toolbar (CSS
+  looks fine?)
+
+* Automagically adding the FireMan button in front
+  of the search bar does not work because of a mysteric
+  bug not showing the navigation bar after getting
+  it with document.getElementById (see Overlay XUL)

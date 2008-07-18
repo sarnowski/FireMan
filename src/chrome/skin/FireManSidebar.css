@@ -1,0 +1,7 @@
+#FireManButton {
+	list-style-image: url(chrome://fireman/skin/images/logo24x24.png);
+}
+
+toolbar[iconsize="small"] #FireManButton {
+	list-style-image: url(chrome://fireman/skin/images/logo16x16.png) !important;
+}

@@ -24,9 +24,9 @@ licensing terms.
 			<button id="ManualPageSearchButton" label="Search!" />
 		</hbox>
 
-		<tree id="ManualPageListing" flex="1">
+		<tree id="ManualPageTree" flex="1" hidecolumnpicker="yes" seltype="single" disableKeyNavigation="false" editable="false" class="tree">
 			<treecols>
-				<treecol id="ManualPageEntryName" primary="true" flex="1" />
+				<treecol id="ManualPageTreeEntries" primary="true" flex="1" />
 			</treecols>
 			<treechildren />
 		</tree>

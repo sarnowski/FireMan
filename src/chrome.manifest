@@ -1,3 +1,5 @@
 content	fireman	jar:chrome/fireman.jar!/content/
+skin	fireman	classic/1.0	jar:chrome/fireman.jar!/skin/
 locale	fireman	en-US	jar:chrome/fireman.jar!/locale/en-US/
 overlay chrome://browser/content/browser.xul	chrome://fireman/content/FireManSidebarOverlay.xul
+style	chrome://global/content/customizeToolbar.xul	chrome://fireman/skin/FireManSidebar.css

@@ -6,13 +6,21 @@ See the LICENSE file shipped with the source code or package for
 licensing terms.
 -->
 
+<?xml-stylesheet href="chrome://fireman/skin/FireManSidebar.css" type="text/css"?>
+
 <!DOCTYPE overlay SYSTEM "chrome://fireman/locale/FireManSidebar.dtd">
 <overlay id="FireManSidebarOverlay"
 	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
+	<!-- our manu entry -->
 	<menupopup id="viewSidebarMenu">
 		<menuitem key="key_openFireManSidebar" observes="viewFireManSidebar" />
 	</menupopup>
+
+	<!-- our toolbar button -->
+	<toolbarpalette id="BrowserToolbarPalette">
+		<toolbarbutton id="FireManButton" class="toolbarbutton-1" label="&FireManSidebar.title;" tooltiptext="&FireManSidebar.title;" oncommand="toggleSidebar('viewFireManSidebar');" />
+	</toolbarpalette>
 
 	<keyset id="mainKeyset">
 		<key id="key_openFireManSidebar" command="viewFireManSidebar"
@@ -30,4 +38,33 @@ licensing terms.
 			sidebartitle="&FireManSidebar.title;"
 			oncommand="toggleSidebar('viewFireManSidebar');" />
 	</broadcasterset>
+
+
+	<script type="application/x-javascript">
+/* disabled atm because the first line "document.getElementById" breaks firefox... o.O
+try {
+	var FM_firefoxnav = document.getElementById("nav-bar");
+	var FM_curSet = FM_firefoxnav.currentSet;
+	if (FM_curSet.indexOf("FireManButton") == -1)
+	{
+		var FM_set;
+		// Place the button before the search bar
+		if (FM_curSet.indexOf("search-container") != -1) {
+			FM_set = curSet.replace(/search-container/, "FireManButton,search-container");
+		} else {  // at the end
+			FM_set = FM_curSet + ",FireManButton";
+		}
+		FM_firefoxnav.setAttribute("currentset", FM_set);
+		FM_firefoxnav.currentSet = FM_set;
+		document.persist("nav-bar", "currentset");
+		// If you don't do the following call, funny things happen
+		try {
+			BrowserToolboxCustomizeDone(true);
+		}
+		catch (e) { alert("#" + e); }
+	}
+}
+catch(e) { alert(e); }
+*/
+	</script>
 </overlay>
