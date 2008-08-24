@@ -14,7 +14,7 @@ package: generate
 	../scripts/generate_xpi.sh ../$(APPNAME).xpi fireman.jar
 
 clean:
-	rm -rf build
+	@echo "    CLN build"; rm -rf build
 
 distclean: clean
-	rm -f $(APPNAME).xpi
+	@echo "    CLN $(APPNAME).xpi"; rm -f $(APPNAME).xpi

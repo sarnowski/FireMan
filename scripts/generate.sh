@@ -46,42 +46,52 @@ find $FILES_TO_PROCESS | while read file; do
 		mkdir -p $BUILDDIR/$file
 
 	elif [ -f $file ]; then
-		# copy over file
-		echo "    GEN $file"
-		cp $file $BUILDDIR/$file
 
-		# insert version
-		$SED "s/%%VERSION%%/$VERSION/g" -i $BUILDDIR/$file
+		# what type of file do we have?
+		filetype=$(file $file | cut -d' ' -f2)
+		if [ "$filetype" = "ASCII" ]; then
+			# copy over file
+			echo "    GEN $file"
+			cp $file $BUILDDIR/$file
 
-		# parse the config file
-		cat $configfile | while read line; do
+			# insert version
+			$SED "s/%%VERSION%%/$VERSION/g" -i $BUILDDIR/$file
 
-			# strip comments
-			line=$(echo $line | sed 's/#.*//')
+			# parse the config file
+			cat $configfile | while read line; do
 
-			# sort out invalid lines
-			if [ -z "$(echo $line | grep '=')" ]; then
-				continue;
-			fi
+				# strip comments
+				line=$(echo $line | sed 's/#.*//')
 
-			# split line
-			key=$(echo $line | cut -d'=' -f1)
-			value=$(echo $line | cut -d'=' -f2-)
+				# sort out invalid lines
+				if [ -z "$(echo $line | grep '=')" ]; then
+					continue;
+				fi
 
-			# do not process special keywords
-			case "$key" in
-				"FILES_TO_PROCESS") continue;;
-				"BUILDDIR") continue;;
-			esac
+				# split line
+				key=$(echo $line | cut -d'=' -f1)
+				value=$(echo $line | cut -d'=' -f2-)
 
-			# strip " from strings
-			value=$(echo $value | sed 's/^"//' | sed 's/"$//')
+				# do not process special keywords
+				case "$key" in
+					"FILES_TO_PROCESS") continue;;
+					"BUILDDIR") continue;;
+				esac
 
-			# escape / to \/
-			value=$(echo $value | sed 's/\//\\\//')
+				# strip " from strings
+				value=$(echo $value | sed 's/^"//' | sed 's/"$//')
 
-			# replace %%<key>%% with <value>
-			$SED "s/%%$key%%/$value/g" -i $BUILDDIR/$file
-		done
+				# escape / to \/
+				value=$(echo $value | sed 's/\//\\\//')
+
+				# replace %%<key>%% with <value>
+				$SED "s/%%$key%%/$value/g" -i $BUILDDIR/$file
+			done
+		else
+			# no ASCII file
+			# copy over file
+			echo "    CPY $file"
+			cp $file $BUILDDIR/$file
+		fi
 	fi
 done

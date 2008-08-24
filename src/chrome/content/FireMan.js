@@ -66,17 +66,42 @@ function FM_getList(searchTerm)
 		var aliases = entry[1].split(',');
 		var title = FM_trim(aliases[0]);
 		var category = entry[2];
+		var machine = null;
 		var description = entry[3];
 
+		// on OpenBSD there are manual pages marked with
+		// e.g. 8/i386 for machine specific pages, parse
+		// them
+		var i = category.indexOf("/");
+		if (i > 0) {
+			machine = category.substr(i + 1);
+			category = category.substr(0, i);
+		}
+
+		// the first keyword is our main keyword, throw it away
 		aliases.shift();
 
-		var page = new Array();
-		page["title"] = title;
-		page["category"] = category;
-		page["description"] = description;
-		page["aliases"] = aliases;
+		// search if we already have this main man page
+		// and if so, add it as a machine addition
+		var added = false;
+		if (machine != null) {
+			for (d in data) {
+				if (data[d]["title"] == title && data[d]["category"] == category) {
+					data[d]["machines"][data[d]["machines"].length] = machine;
+					added = true;
+				}
+			}
+		}
+		if (!added) {
+			var page = new Array();
+			page["title"] = title;
+			page["category"] = category;
+			page["description"] = description;
+			page["machines"] = new Array();
+			page["aliases"] = aliases;
 
-		data[data.length] = page;
+			data[data.length] = page;
+		}
 	}
 
 	return data;
