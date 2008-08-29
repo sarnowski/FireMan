@@ -70,11 +70,19 @@ ManProtocolHandler.prototype.newChannel = function(aURI)
 
 	dump("requested manual page: " + title + " (c: " + category + "/m: " + machine + ")\n");
 
-	var ioServ = Components.classesByID[NS_IOSERVICE_CID].getService();
-	ioServ = ioServ.QueryInterface(nsIIOService);
-	var uri = ioServ.newURI("http://man.cx/" + title + "(" + category + ")", null, null);
-	var chan = ioServ.newChannelFromURI(uri);
-	return chan;
+
+	// now get the man output and parse it
+	// TODO ...
+	var output = '<html><head><title>' + title + ' (' + category + ')</title></head><body><h1>' + title + ' (' + category + ')</h1></body></html>';
+
+	var stream = Components.classes["@mozilla.org/io/string-input-stream;1"].createInstance(Components.interfaces.nsIStringInputStream);
+	stream.setData(output, output.length);
+
+	// create a channel to stream it into firefox browser
+	var channel = Components.classes["@mozilla.org/network/input-stream-channel;1"].createInstance(Components.interfaces.nsIInputStreamChannel);
+	channel.setURI(aURI);
+	channel.contentStream = stream;
+	return channel;
 }
 
 
