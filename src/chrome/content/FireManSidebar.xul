@@ -32,12 +32,14 @@ licensing terms.
 				image="chrome://fireman/skin/images/find.png" />
 		</hbox>
 
-		<tree id="ManualPageTree" flex="1" hidecolumnpicker="true" seltype="single" disableKeyNavigation="false" editable="false">
+		<tree id="ManualPageTree" flex="1" hidecolumnpicker="true" seltype="single" disableKeyNavigation="false" editable="false" onselect="FM_showMan(this)">
 			<treecols>
 				<treecol id="ManualPageTreeEntries" label="&FireManSidebar.result;" primary="true" flex="1" />
 			</treecols>
 			<treechildren id="ManualPageTreeContent" />
-			<!--
+
+
+			<!-- example structure, will be created dynamically
 			<treechildren>
 				<treeitem container="true" open="false">
 					<treerow>
@@ -85,6 +87,8 @@ licensing terms.
 				</treeitem>
 			</treechildren>
 			-->
+
+
 		</tree>
 
 	</vbox>

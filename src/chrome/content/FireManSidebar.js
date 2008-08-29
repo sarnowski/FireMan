@@ -30,7 +30,7 @@ function FM_fillTree(searchTerm)
 		}
 
 	} catch (ex) {
-		alert("FireMan Exception:\n" + ex);
+		dump("FireMan Exception:\n" + ex);
 	}
 }
 
@@ -94,6 +94,8 @@ function FM_addCategory(category)
 	ti = document.createElement("treeitem");
 	ti.setAttribute("id", "FM-category-" + category);
 	ti.setAttribute("container", "true");
+	ti.setAttribute("fm_type", "category");
+	ti.setAttribute("fm_category", category);
 	ti.appendChild(tr);
 	ti.appendChild(tch);
 
@@ -156,6 +158,10 @@ function FM_addManual(title, category, description, machines, aliases)
 
 	ti = document.createElement("treeitem");
 	ti.setAttribute("id", "FM-page-" + category + "-" + title);
+	ti.setAttribute("fm_type", "page");
+	ti.setAttribute("fm_title", title);
+	ti.setAttribute("fm_category", category);
+	ti.setAttribute("fm_machine", '');
 	ti.appendChild(tr);
 
 	tch.appendChild(ti);
@@ -171,16 +177,20 @@ function FM_addManual(title, category, description, machines, aliases)
 		// add machine specific pages if available
 		for (var n = 0; n < machines.length; n++) {
 			tc = document.createElement("treecell");
-			tc.setAttribute("id", "FM-page-" + category + "-" + machines[n] + "-treecell");
+			tc.setAttribute("id", "FM-page-" + category + "-" + machines[n] + "-" + title + "-treecell");
 			tc.setAttribute("label", machines[n]);
 			tc.setAttribute("src", "chrome://fireman/skin/images/page_white_gear.png");
 
 			tr = document.createElement("treerow");
-			tr.setAttribute("id", "FM-page-" + category + "-" + machines[n] + "-treerow");
+			tr.setAttribute("id", "FM-page-" + category + "-" + machines[n] + "-" + title + "-treerow");
 			tr.appendChild(tc);
 
 			ti = document.createElement("treeitem");
-			ti.setAttribute("id", "FM-page-" + category + "-" + machines[n]);
+			ti.setAttribute("id", "FM-page-" + category + "-" + machines[n] + "-" + title);
+			ti.setAttribute("fm_type", "page");
+			ti.setAttribute("fm_title", title);
+			ti.setAttribute("fm_category", category);
+			ti.setAttribute("fm_machine", machines[n]);
 			ti.appendChild(tr);
 
 			tch.appendChild(ti);
@@ -189,19 +199,50 @@ function FM_addManual(title, category, description, machines, aliases)
 		// add aliases if available
 		for (var n = 0; n < aliases.length; n++) {
 			tc = document.createElement("treecell");
-			tc.setAttribute("id", "FM-page-" + category + "-" + aliases[n] + "-treecell");
+			tc.setAttribute("id", "FM-page-" + category + "-" + aliases[n] + "-" + title + "-treecell");
 			tc.setAttribute("label", aliases[n]);
 			tc.setAttribute("src", "chrome://fireman/skin/images/page_white_get.png");
 
 			tr = document.createElement("treerow");
-			tr.setAttribute("id", "FM-page-" + category + "-" + aliases[n] + "-treerow");
+			tr.setAttribute("id", "FM-page-" + category + "-" + aliases[n] + "-" + title + "-treerow");
 			tr.appendChild(tc);
 
 			ti = document.createElement("treeitem");
-			ti.setAttribute("id", "FM-page-" + category + "-" + aliases[n]);
+			ti.setAttribute("id", "FM-page-" + category + "-" + aliases[n] + "-" + title);
+			ti.setAttribute("fm_type", "page");
+			ti.setAttribute("fm_title", title);
+			ti.setAttribute("fm_category", category);
+			ti.setAttribute("fm_machine", '');
 			ti.appendChild(tr);
 
 			tch.appendChild(ti);
 		}
 	}
+}
+
+
+function FM_showMan(tree)
+{
+	dump("show man..\n");
+	var item = tree.view.getItemAtIndex(tree.currentIndex);
+
+	if (item.getAttribute("fm_type") != "page") {
+		// categories aren't handled atm
+		return;
+	}
+
+	var title = item.getAttribute("fm_title");
+	var category = item.getAttribute("fm_category");
+	var machine = item.getAttribute("fm_machine");
+
+	if (machine != '') {
+		category = category + "/" + machine;
+	}
+	var manurl = "man://" + category + "/" + title;
+
+	// FIXME as long as we don't have a protocol handler for man:// user http://man.cx/ to display
+	manurl = "http://man.cx/" + title + "(" + category + ")";
+
+	var browser = top.document.getElementById("content");
+	browser.webNavigation.loadURI(manurl, Components.interfaces.nsIWebNavigation,null,null,null);
 }
