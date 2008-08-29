@@ -223,7 +223,6 @@ function FM_addManual(title, category, description, machines, aliases)
 
 function FM_showMan(tree)
 {
-	dump("show man..\n");
 	var item = tree.view.getItemAtIndex(tree.currentIndex);
 
 	if (item.getAttribute("fm_type") != "page") {
@@ -239,9 +238,6 @@ function FM_showMan(tree)
 		category = category + "/" + machine;
 	}
 	var manurl = "man://" + category + "/" + title;
-
-	// FIXME as long as we don't have a protocol handler for man:// user http://man.cx/ to display
-	manurl = "http://man.cx/" + title + "(" + category + ")";
 
 	var browser = top.document.getElementById("content");
 	browser.webNavigation.loadURI(manurl, Components.interfaces.nsIWebNavigation,null,null,null);

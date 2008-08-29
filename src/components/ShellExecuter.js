@@ -20,6 +20,8 @@ ShellExecuter.prototype = {
 	 */
 	exec: function(command)
 	{
+		dump("$ " + command + "\n");
+
 		// prepare output file to pipe to
 		var outputfile = this.getTemporaryFile();
 
