@@ -1,0 +1,11 @@
+* {
+	font-family: Courier;
+}
+
+.man_bold {
+	font-weight: bold;
+}
+
+.man_underline {
+	font-weight: underline;
+}
