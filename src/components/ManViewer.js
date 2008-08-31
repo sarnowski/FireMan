@@ -18,6 +18,22 @@ const nsIPrefService        		= Components.interfaces.nsIPrefService;
 const nsIWindowWatcher      		= Components.interfaces.nsIWindowWatcher;
 const nsIChannel            		= Components.interfaces.nsIChannel;
 
+
+function disableHTML(textchar)
+{
+	if (textchar == ' ') {
+		return '&nbsp;';
+	} else if (textchar == '<') {
+		return '&lt;';
+	} else if (textchar == '>') {
+		return '&gt;';
+	} else if (textchar == '&') {
+		return '&and;';
+	} else {
+		return textchar;
+	}
+}
+
 function transformMan2HTML(manoutput)
 {
 	var htmloutput = '';
@@ -68,12 +84,6 @@ function transformMan2HTML(manoutput)
 			}
 			htmloutput += "<br/>\n";
 
-		} else if (s == '<') {
-			htmloutput += '&lt;';
-		} else if (s == '>') {
-			htmloutput += '&gt;';
-		} else if (s == '&') {
-			htmloutput += '&and;';
 		} else if (s == '+' && s_next != '+' && on_bold) {
 			htmloutput += '*'; // it's a bullet
 
@@ -87,7 +97,7 @@ function transformMan2HTML(manoutput)
 				htmloutput += '<span class="man_underline">';
 				on_underline = true;
 			}
-			htmloutput += s_nextnext;
+			htmloutput += disableHTML(s_nextnext);
 			n += 2;
 		} else if (c_next == 8 && s_nextnext == s) {
 			// bold
@@ -95,7 +105,7 @@ function transformMan2HTML(manoutput)
 				htmloutput += '<span class="man_bold">';
 				on_bold = true;
 			}
-			htmloutput += s;
+			htmloutput += disableHTML(s);
 			n += 2;
 		} else {
 			if (on_bold || on_underline) {
@@ -103,7 +113,7 @@ function transformMan2HTML(manoutput)
 				on_bold = false;
 				on_underline = false;
 			}
-			htmloutput += s;
+			htmloutput += disableHTML(s);
 		}
 
 	}
@@ -115,7 +125,7 @@ function transformMan2HTML(manoutput)
 	htmloutput += '<html>\n';
 	htmloutput += '    <head>\n';
 	htmloutput += '        <title>FireMan</title>\n';
-	htmloutput += '        <link rel="stylesheet" type="text/css" href="chrome://fireman/skin/basic.css"/>\n';
+	htmloutput += '        <link rel="stylesheet" type="text/css" href="resource://fireman/basic.css"/>\n';
 	htmloutput += '    </head>\n';
 	htmloutput += '    <body>\n';
 	htmloutput += tmp;
@@ -173,9 +183,6 @@ ManProtocolHandler.prototype.newChannel = function(aURI)
 		machine = urlparts[1];
 		title = urlparts[2];
 	}
-
-	dump("requested manual page: " + title + " (c: " + category + "/m: " + machine + ")\n");
-
 
 	// now get the man output and parse it
 
