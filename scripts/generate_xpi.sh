@@ -27,5 +27,5 @@ if [ -z "$jar" ]; then
 fi
 
 echo "    XPI $(basename $xpi)"
-zip $xpi LICENSE install.rdf chrome.manifest chrome/$jar >/dev/null
+zip $xpi LICENSE install.rdf chrome.manifest chrome/$jar components/* >/dev/null
 exit $?
