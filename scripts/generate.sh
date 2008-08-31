@@ -50,7 +50,8 @@ cd $SRCDIR
 
 # find out the actual version
 VERSION=$(../scripts/generate_version.sh)
-echo "    VSN $VERSION"
+VERSION_FULL=$(../scripts/generate_version.sh --full)
+echo "    VSN $VERSION_FULL"
 
 # process every listed file
 find $FILES_TO_PROCESS | while read file; do
@@ -72,6 +73,7 @@ find $FILES_TO_PROCESS | while read file; do
 
 			# insert version
 			$SED "s/%%VERSION%%/$VERSION/g" -i $BUILDDIR/$file
+			$SED "s/%%VERSION_FULL%%/$VERSION_FULL/g" -i $BUILDDIR/$file
 
 			# parse the config file
 			cat $configfile | while read line; do

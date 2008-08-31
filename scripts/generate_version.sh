@@ -20,6 +20,10 @@ version=$(git-describe --abbrev=4 HEAD 2>/dev/null)
 # dashes are ugly, use dots
 version=$(echo $version | sed 's/-/./g')
 
+if [ "$1" != "--full" ]; then
+	version=$(echo $version | sed 's/\.[^\.]*$//')
+fi
+
 # mark as dirty if uncommitted parts are in the source
 if [ ! -z "$(git-diff-index --name-only HEAD --)" ]; then
 	version="$version-dirty"
