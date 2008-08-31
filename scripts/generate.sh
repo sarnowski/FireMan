@@ -17,7 +17,7 @@ SED=sed
 # find the right "sed"
 # use GNU sed if available, nessecary on OpenBSD
 # cause sed don't supports -i (infile)
-[ ! -z "$(whereis gsed)" ] && SED=gsed
+[ ! -z "$(which gsed)" ] && SED=gsed
 
 
 # include config file for direct usage of variables
