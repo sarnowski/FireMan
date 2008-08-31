@@ -55,6 +55,12 @@ ShellExecuter.prototype = {
 		return output;
 	},
 
+
+	exect: function(command)
+	{
+		return this.exec(command).replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+	},
+
 	getTemporaryFile: function()
 	{
 		var file = Components.classes["@mozilla.org/file/directory_service;1"]

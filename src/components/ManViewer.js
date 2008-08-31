@@ -21,22 +21,23 @@ const nsIChannel            		= Components.interfaces.nsIChannel;
 
 function disableHTML(textchar)
 {
-	if (textchar == ' ') {
-		return '&nbsp;';
-	} else if (textchar == '<') {
+	if (textchar == '<') {
 		return '&lt;';
 	} else if (textchar == '>') {
 		return '&gt;';
 	} else if (textchar == '&') {
-		return '&and;';
+		return '&amp;';
 	} else {
 		return textchar;
 	}
 }
 
-function transformMan2HTML(manoutput)
+function transformMan2HTML(manoutput, man_title, man_category)
 {
 	var htmloutput = '';
+
+	var first_line = true;
+	var char_after_first_line = false;
 
 	var on_bold = false;
 	var on_underline = false;
@@ -77,15 +78,21 @@ function transformMan2HTML(manoutput)
 		if (s == '\n') {
 			// new line, close the old one
 			// clear bold/underline
-			if (on_bold || on_underline) {
-				htmloutput += '</span>';
-				on_bold = false;
-				on_underline = false;
+			if (first_line) {
+				// strip the first line
+				htmloutput = '';
+				first_line = false;
+			} else {
+				if (on_bold || on_underline) {
+					htmloutput += '</span>';
+					on_bold = false;
+					on_underline = false;
+				}
+				htmloutput += "\n";
 			}
-			htmloutput += "<br/>\n";
 
-		} else if (s == '+' && s_next != '+' && on_bold) {
-			htmloutput += '*'; // it's a bullet
+//		} else if (s == '+' && s_next != '+' && c_nextnext == 8 && s_nextnextnext == '+') {
+//			htmloutput += '*'; // it's a bullet
 
 		} else if (c == 8) {
 			// should be already parsed
@@ -93,6 +100,10 @@ function transformMan2HTML(manoutput)
 
 		} else if (s == '_' && c_next == 8) {
 			// underline
+			if (on_bold) {
+				htmloutput += '</span>';
+				on_bold = false;
+			}
 			if (!on_underline) {
 				htmloutput += '<span class="man_underline">';
 				on_underline = true;
@@ -101,6 +112,10 @@ function transformMan2HTML(manoutput)
 			n += 2;
 		} else if (c_next == 8 && s_nextnext == s) {
 			// bold
+			if (on_underline) {
+				htmloutput += '</span>';
+				on_underline = false;
+			}
 			if (!on_bold) {
 				htmloutput += '<span class="man_bold">';
 				on_bold = true;
@@ -108,30 +123,58 @@ function transformMan2HTML(manoutput)
 			htmloutput += disableHTML(s);
 			n += 2;
 		} else {
-			if (on_bold || on_underline) {
+			if (on_bold) {
 				htmloutput += '</span>';
 				on_bold = false;
+			}
+			if (on_underline) {
+				htmloutput += '</span>';
 				on_underline = false;
 			}
 			htmloutput += disableHTML(s);
 		}
 
 	}
+	var tmp = htmloutput.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 
-	var tmp = htmloutput;
+	// seperate special titles
+	tmp = tmp.replace(/^<span class="man_bold">(.*)<\/span> <span class="man_bold">(.*)<\/span>/g, '<h1><a name="$1 $2" href="#bottomnav">$1 $2</a></h1>');
+	tmp = tmp.replace(/\n+<span class="man_bold">(.*)<\/span> <span class="man_bold">(.*)<\/span>/g, '<h1><a name="$1 $2" href="#bottomnav">$1 $2</a></h1>');
+	tmp = tmp.replace(/^<span class="man_bold">(.*)<\/span>/g, '<h1><a name="$1" href="#bottomnav">$1</a></h1>');
+	tmp = tmp.replace(/\n+<span class="man_bold">(.*)<\/span>/g, '<h1><a name="$1" href="#bottomnav">$1</a></h1>');
+
+	// link links
+	tmp = tmp.replace(/([\-.\w]+)\((\w+)\)/g, '<a href="man://$2/$1">$1($2)</a>');
 
 	htmloutput  = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"\n';
 	htmloutput += '    "http://www.w3.org/TR/html4/loose.dtd">\n\n';
 	htmloutput += '<html>\n';
 	htmloutput += '    <head>\n';
-	htmloutput += '        <title>FireMan</title>\n';
-	htmloutput += '        <link rel="stylesheet" type="text/css" href="resource://fireman/basic.css"/>\n';
+	htmloutput += '        <title>' + man_title + '(' + man_category + ')</title>\n';
+	htmloutput += '        <link rel="shortcut icon" type="image/png" href="resource://fireman/img/logo16x16.png"/>\n';
+	htmloutput += '        <link rel="stylesheet" type="text/css" href="resource://fireman/css/screen.css" media="screen"/>\n';
+	htmloutput += '        <link rel="stylesheet" type="text/css" href="resource://fireman/css/print.css" media="print"/>\n';
 	htmloutput += '    </head>\n';
 	htmloutput += '    <body>\n';
+	htmloutput += '        <div id="main">\n';
+	htmloutput += '            <div id="header">\n';
+	htmloutput += '                <p>\n';
+	htmloutput += '                    <img src="resource://fireman/img/os/openbsd.png" alt="OpenBSD" title="FireMan uses the OpenBSD manpages."/>\n';
+	htmloutput += '                    OpenBSD Manual Page<br/>\n';
+	htmloutput += '                    <strong>' + man_title + '(' + man_category + ')</strong>\n';
+	htmloutput += '                </p>\n';
+	htmloutput += '            </div>\n';
+	htmloutput += '            <div id="manpage">\n';
+	htmloutput += '                <pre>\n';
 	htmloutput += tmp;
+	htmloutput += '                </pre>\n';
+	htmloutput += '            </div>\n';
+	htmloutput += '            <div id="footer">\n';
+	htmloutput += '                This manual page is rendered by <a href="#" title="The FireMan Homepage">FireMan</a> <a href="#" title="The FireMan Homepage"><img src="resource://fireman/img/logo24x24.png" alt="FireMan" /></a>\n';
+	htmloutput += '            </div>\n';
+	htmloutput += '        </div>\n';
 	htmloutput += '    </body>\n';
 	htmloutput += '</html>\n\n';
-
 	return htmloutput;
 }
 
@@ -197,9 +240,9 @@ ManProtocolHandler.prototype.newChannel = function(aURI)
 		mancmd = mancmd + ' -S ' + machine;
 	}
 	mancmd = mancmd + ' ' + title;
-	var output = shell.exec(mancmd);
+	var output = shell.exect(mancmd);
 
-	output = transformMan2HTML(output);
+	output = transformMan2HTML(output, title, category);
 
 	var stream = Components.classes["@mozilla.org/io/string-input-stream;1"].createInstance(Components.interfaces.nsIStringInputStream);
 	stream.setData(output, output.length);

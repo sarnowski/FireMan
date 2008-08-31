@@ -1,0 +1,119 @@
+@charset "utf-8";
+/* CSS Document */
+
+html {
+	margin:0px;
+	padding:0px;
+}
+
+body {
+	margin:0px;
+	padding:0px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:8pt;
+	background-color:#CCCCCC;
+}
+
+.man_bold {
+	font-weight: bold;
+}
+
+.man_underline {
+	text-decoration: underline;
+}
+
+img {
+	border-style:hidden;
+}
+
+#main {
+	background-color:#FFFFFF;
+}
+
+#header {
+	border-bottom-color:#000000;
+	border-bottom-width:1px;
+	border-bottom-style:solid;
+	border-collapse:collapse;
+	background-color:#FFFFFF;
+	padding-left:20px;
+	padding-bottom:2px;
+	padding-top:2px;
+	text-align:left;
+	vertical-align:middle;
+	font-size:16px;
+	font-family:Arial, Helvetica, sans-serif;
+
+}
+
+#header img {
+	margin-right:20px;
+	vertical-align:middle;
+	float: left;
+}
+
+#manpage {
+	color:#000000;
+	background-color:#ffffff;
+	font-family:"Courier New", Courier, monospace;
+	margin-left:25px;
+	margin-right:25px;
+	text-align:left;
+}
+
+
+#manpage pre {
+	padding-left:20px;
+	font-size:14px;
+	border-left-color:#CCCCCC;
+	border-left-style:solid;
+	border-left-width:1px;
+	margin-top:0px;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
+#manpage h1 {
+	font-family:"Courier New", Courier, monospace;
+	font-size:24px;
+	border-bottom-color:#CCCCCC;
+	border-bottom-style:solid;
+	border-bottom-width:1px;
+	padding-left:10px;
+	margin-bottom:0px;
+	color:#000000;
+}
+
+#manpage a, #manpage a:link, #manpage a:visited, #manpage a:active, #manpage a:visited, #manpage a:hover {
+	text-decoration:none;
+	color:#000099;
+}
+
+#manpage p {
+	border-top-color:#ffffff;
+	border-top-style:solid;
+	border-top-width:1px;
+	text-align:left;
+}
+#manpage p.right {
+	text-align:right;
+}
+
+#footer {
+	border-top-color:#000000;
+	border-top-width:1px;
+	border-top-style:solid;
+	border-collapse:collapse;
+	background-color:#CCCCCC;
+	text-align:right;
+	padding-top:10px;
+	padding-bottom:10px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+}
+
+#footer img {
+	margin-right:20px;
+	margin-left:5px;
+	vertical-align:middle;
+}
