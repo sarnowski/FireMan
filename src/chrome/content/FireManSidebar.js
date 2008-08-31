@@ -235,7 +235,7 @@ function FM_showMan(tree)
 	var machine = item.getAttribute("fm_machine");
 
 	if (machine != '') {
-		category = category + "/" + machine;
+		category = category + "/" + machine.toLowerCase();
 	}
 	var manurl = "man://" + category + "/" + title;
 
