@@ -62,6 +62,10 @@ function FM_getList(searchTerm)
 	// only be a word (no whitespace)
 	var lineFormat = /^(.+)\s*\((.+)\)\s+-\s+(.+)$/;
 
+	// used to strip (category) endings of titles
+	// discovered under MacOS X
+	var stripCat = /\s*\(.+\)$/;
+
 
 	// prepare data object to fill it later
 	var data = new Array();
@@ -85,6 +89,14 @@ function FM_getList(searchTerm)
 		var category = entry[2];
 		var machine = null;
 		var description = entry[3];
+
+		// on Mac OS X apropos prints out the category name after
+		// each page title e.g. printf(3), fprintf(3), ...
+		// so, strip it on each entry
+		title = title.replace(stripCat, '');
+		for (a in aliases) {
+			aliases[a] = aliases[a].replace(stripCat, '');
+		}
 
 		// on OpenBSD there are manual pages marked with
 		// e.g. 8/i386 for machine specific pages, parse
