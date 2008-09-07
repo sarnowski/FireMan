@@ -87,7 +87,6 @@ function FM_addCategory(category)
 	var tch;
 
 	// prepare the category
-	category = FM_getOSCategoryAlias(category);
 	categorydesc = FM_getOSCategoryDescription(category);
 	if (!categorydesc) {
 		categorydesc = category;
@@ -157,9 +156,12 @@ function FM_addManual(title, category, description, machines, aliases)
 	var tr;
 	var ti;
 
-	var tch = document.getElementById("FM-category-" + category + "-children");
+	// aliases resolution
+	var aliascategory = FM_getOSCategoryAlias(category);
+
+	var tch = document.getElementById("FM-category-" + aliascategory + "-children");
 	if (!tch) {
-		tch = FM_addCategory(category);
+		tch = FM_addCategory(aliascategory);
 	}
 
 	// add manual to the category
