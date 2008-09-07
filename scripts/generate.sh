@@ -65,7 +65,8 @@ find $FILES_TO_PROCESS | while read file; do
 		# what type of file do we have?
 		filetype=$(file $file | cut -d' ' -f2)
 		if [ "$filetype" = "ASCII" ] \
-		|| [ "$filetype" = "XML" ]
+		|| [ "$filetype" = "XML" ] \
+		|| [ "$filetype" = "HTML" ]
 		then
 			# copy over file
 			echo "    GEN $file"
