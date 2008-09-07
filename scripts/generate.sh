@@ -55,12 +55,17 @@ echo "    VSN $VERSION_FULL"
 
 # process every listed file
 find $FILES_TO_PROCESS | while read file; do
-	if [ -d $file ]; then
+	if [ -d $file ] && [ ! -d $BUILDDIR/$file ]; then
 		# create the directory
 		echo "    DIR $file"
 		mkdir -p $BUILDDIR/$file
 
 	elif [ -f $file ]; then
+
+		# already processed?
+		if [ $file -ot $BUILDDIR/$file ]; then
+			continue
+		fi
 
 		# what type of file do we have?
 		filetype=$(file $file | cut -d' ' -f2)
