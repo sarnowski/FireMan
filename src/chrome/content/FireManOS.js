@@ -33,8 +33,14 @@ function FM_getOSCategoryAlias(category)
 	var aliases = new Array();
 
 	// default aliases
-	aliases["x"] = "X11R6";
-	aliases["X11"] = "X11R6";
+	aliases["1m"] = "1";  // Darwin
+	aliases["3pm"] = "3p";  // Darwin
+	aliases["3cc"] = "3ssl";  // Darwin
+	aliases["3tcl"] = "n";  // Darwin
+	aliases["x"] = "X11R6";  // OpenBSD
+	aliases["X11"] = "X11R6";  // OpenBSD
+	aliases["ntcl"] = "n";  // Darwin
+
 
 	if (aliases["" + category]) {
 		return aliases["" + category];
@@ -47,23 +53,30 @@ function FM_getOSCategories()
 {
 	var categories = new Array();
 
-	// default categories (based on OpenBSD and http://en.wikipedia.org/wiki/Man_page)
-	categories["0"] = "C library header files.";
-	categories["1"] = "General commands (tools and utilities).";
-	categories["2"] = "System calls and error numbers.";
-	categories["3"] = "C library functions.";
-	categories["3f"] = "Fortran programmer's reference guide.";
-	categories["3p"] = "Perl programmer's reference guide.";
-	categories["3G"] = "OpenGL programmer's reference guide.";
-	categories["4"] = "Device drivers and special files.";
-	categories["5"] = "File formats and conventions.";
-	categories["6"] = "Games and screensavers.";
-	categories["7"] = "Miscellaneous.";
-	categories["8"] = "System maintenance and operation commands.";
-	categories["9"] = "Kernel internals.";
-	categories["X11R6"] = "X Window System.";
-	categories["local"] = "Pages located in /usr/local.";
-	categories["n"] = "Tcl/Tk commands.";
+	// the comments belong to the operating system, I discovered the
+	// category
+	categories["0"] = "C library header files.";  // OpenBSD
+	categories["1"] = "General commands (tools and utilities).";  // OpenBSD
+	categories["1ssl"] = "General SSL commands.";  // Darwin
+	categories["1tcl"] = "Genereal TCL commands,";  // Darwin
+	categories["2"] = "System calls and error numbers.";  // OpenBSD
+	categories["3"] = "C library functions.";  // OpenBSD
+	categories["3f"] = "Fortran programmer's reference guide.";  // OpenBSD
+	categories["3p"] = "Perl programmer's reference guide.";  // OpenBSD
+	categories["3G"] = "OpenGL programmer's reference guide.";  // OpenBSD
+	categories["3ssl"] = "SSL programmer's reference guide.";  // Darwin
+	categories["3x"] = "Window C library functions.";  // Darwin
+	categories["4"] = "Device drivers and special files.";  // OpenBSD
+	categories["5"] = "File formats and conventions.";  // OpenBSD
+	categories["5ssl"] = "SSL file formats and conventions.";  // Darwin
+	categories["6"] = "Games and screensavers.";  // OpenBSD
+	categories["7"] = "Miscellaneous.";  // OpenBSD
+	categories["7ssl"] = "SSL miscellaneous.";  // Darwin
+	categories["8"] = "System maintenance and operation commands.";  // OpenBSD
+	categories["9"] = "Kernel internals."; // OpenBSD
+	categories["X11R6"] = "X Window System.";  // OpenBSD
+	categories["local"] = "Pages located in /usr/local.";  // OpenBSD
+	categories["n"] = "Tcl/Tk reference.";  // OpenBSD
 
 	return categories;
 }
