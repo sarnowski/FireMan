@@ -25,7 +25,7 @@ if [ "$1" != "--full" ]; then
 fi
 
 # mark as dirty if uncommitted parts are in the source
-if [ ! -z "$(git-diff-index --name-only HEAD --)" ]; then
+if [ "$1" == "--full" ] && [ ! -z "$(git-diff-index --name-only HEAD --)" ]; then
 	version="$version-dirty"
 fi
 
