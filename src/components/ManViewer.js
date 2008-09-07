@@ -174,11 +174,34 @@ function transformMan2HTML(manoutput, man_title, man_category)
 	// link links
 	tmp = tmp.replace(/([\-.\w]+)\((\w+)\)/g, '<a href="man://$2/$1">$1($2)</a>');
 
+	// get os type and customize design
+	var shell = Components.classes['%%XPCOM_SHELL%%'].getService().wrappedJSObject;
+	var os = shell.exect("uname");
+	switch (os) {
+		case "OpenBSD":
+			break;
+		case "NetBSD":
+			break;
+		case "FreeBSD":
+			break;
+		case "Darwin":
+			break;
+		case "Linux":
+			break;
+		default:
+			os = false;
+			break;
+	}
+
 	htmloutput  = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"\n';
 	htmloutput += '    "http://www.w3.org/TR/html4/loose.dtd">\n\n';
 	htmloutput += '<html>\n';
 	htmloutput += '    <head>\n';
-	htmloutput += '        <title>' + man_title + '(' + man_category + ')</title>\n';
+	htmloutput += '        <title>' + man_title;
+	if (man_category) {
+		htmloutput += '(' + man_category + ')';
+	}
+	htmloutput += '</title>\n';
 	htmloutput += '        <link rel="shortcut icon" type="image/png" href="resource://fireman/img/logo16x16.png"/>\n';
 	htmloutput += '        <link rel="stylesheet" type="text/css" href="resource://fireman/css/screen.css" media="screen"/>\n';
 	htmloutput += '        <link rel="stylesheet" type="text/css" href="resource://fireman/css/print.css" media="print"/>\n';
@@ -187,9 +210,18 @@ function transformMan2HTML(manoutput, man_title, man_category)
 	htmloutput += '        <div id="main">\n';
 	htmloutput += '            <div id="header">\n';
 	htmloutput += '                <p>\n';
-	htmloutput += '                    <img src="resource://fireman/img/os/openbsd.png" alt="OpenBSD" title="FireMan uses the OpenBSD manpages."/>\n';
-	htmloutput += '                    OpenBSD Manual Page<br/>\n';
-	htmloutput += '                    <strong>' + man_title + '(' + man_category + ')</strong>\n';
+	if (os) {
+		htmloutput += '                    <img src="resource://fireman/img/os/' + os + '.png" alt="' + os + '" title="FireMan uses the ' + os + ' manpages."/>\n';
+		htmloutput += '                    ' + os + ' Manual Page<br/>\n';
+	} else {
+		htmloutput += '                    <img src="resource://fireman/img/os/default.png" alt="FireMan" title="FireMan uses the manpages."/>\n';
+		htmloutput += '                    Manual Page<br/>\n';
+	}
+	htmloutput += '                    <strong>' + man_title;
+	if (man_category) {
+		htmloutput += '(' + man_category + ')';
+	}
+	htmloutput += '</strong>\n';
 	htmloutput += '                </p>\n';
 	htmloutput += '            </div>\n';
 	htmloutput += '            <div id="manpage">\n';
