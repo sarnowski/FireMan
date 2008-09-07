@@ -99,16 +99,28 @@ function transformMan2HTML(manoutput, man_title, man_category)
 				htmloutput = '';
 				first_line = false;
 			} else {
-				if (on_bold || on_underline) {
+				if (on_bold) {
 					htmloutput += '</span>';
 					on_bold = false;
+				}
+				if (on_underline) {
+					htmloutput += '</span>';
 					on_underline = false;
 				}
 				htmloutput += "\n";
 			}
 
-//		} else if (s == '+' && s_next != '+' && c_nextnext == 8 && s_nextnextnext == '+') {
-//			htmloutput += '*'; // it's a bullet
+		} else if (s == '+' && c_next == 8 && s_nextnext == '+' && c_nextnextnext == 8) {
+			if (on_underline) {
+				htmloutput += '</span>';
+				on_underline = false;
+			}
+			if (!on_bold) {
+				htmloutput += '<span class="man_bold">';
+				on_bold = true;
+			}
+			htmloutput += '* '; // it's a bullet
+			n += 7;
 
 		} else if (c == 8) {
 			// should be already parsed
