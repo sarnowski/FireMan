@@ -60,7 +60,7 @@ function FM_getList(searchTerm)
 	// where name can be a list of comma+space seperated words
 	// and description a free-formable string; category can
 	// only be a word (no whitespace)
-	var lineFormat = /^(.+)\s+\((.+)\)\s+-\s+(.+)$/;
+	var lineFormat = /^(.+)\s*\((.+)\)\s+-\s+(.+)$/;
 
 
 	// prepare data object to fill it later
