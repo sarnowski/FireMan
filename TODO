@@ -1,3 +1,14 @@
+TODO
+===============
+* Show manual page on pressing enter in the search
+  field
+
+* Optimize performance, in particular, implement
+  lazy resource loading!
+
+
+KNOWN BUGS
+===============
 * the small icon will not be used when dragging
   the FireMan button into a small toolbar (CSS
   looks fine?).
