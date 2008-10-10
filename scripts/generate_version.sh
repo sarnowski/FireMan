@@ -15,7 +15,7 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 # generate version from git
-version=$(git-describe --abbrev=4 HEAD 2>/dev/null)
+version=$(git describe --abbrev=4 HEAD 2>/dev/null)
 
 # dashes are ugly, use dots
 version=$(echo $version | sed 's/-/./g')
@@ -25,7 +25,7 @@ if [ "$1" != "--full" ]; then
 fi
 
 # mark as dirty if uncommitted parts are in the source
-if [ "$1" == "--full" ] && [ ! -z "$(git-diff-index --name-only HEAD --)" ]; then
+if [ "$1" == "--full" ] && [ ! -z "$(git diff-index --name-only HEAD --)" ]; then
 	version="$version-dirty"
 fi
 
