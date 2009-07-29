@@ -15,8 +15,5 @@ KNOWN BUGS
 
   Saw it working on a debian firefox.
 
-* I got several reports, that FireMan doesn't work
-  on Linux systems, especially with FireFox 2.0.
-
 * Rendering error in manpage log1p(3). A misparsed
   headline is rendered really ugly.
