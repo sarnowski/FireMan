@@ -15,7 +15,7 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 # generate version from git
-version=$(git describe --abbrev=4 HEAD 2>/dev/null)
+version=$(git describe --tags --abbrev=4 HEAD 2>/dev/null)
 
 # dashes are ugly, use dots
 version=$(echo $version | sed 's/-/./g')
