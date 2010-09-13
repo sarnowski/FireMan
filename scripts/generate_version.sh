@@ -17,11 +17,12 @@
 # generate version from git
 version=$(git describe --tags --abbrev=4 HEAD 2>/dev/null)
 
-# dashes are ugly, use dots
-version=$(echo $version | sed 's/-/./g')
 
 if [ "$1" != "--full" ]; then
-	version=$(echo $version | sed 's/\.[^\.]*$//')
+    version=$(echo $version | sed 's/-.*$//')
+else
+    # dashes are ugly, use dots
+    version=$(echo $version | sed 's/-/./g')
 fi
 
 # mark as dirty if uncommitted parts are in the source
